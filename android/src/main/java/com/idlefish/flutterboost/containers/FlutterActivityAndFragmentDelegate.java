@@ -325,7 +325,11 @@ public class FlutterActivityAndFragmentDelegate implements IFlutterViewContainer
 
 
     public void onTrimMemory(int level) {
-        mSyncer.onTrimMemory(level);
+        
+        if (null != mSyncer){
+            mSyncer.onTrimMemory(level);
+        }
+        
 
         ensureAlive();
         if (flutterEngine != null) {
@@ -341,8 +345,10 @@ public class FlutterActivityAndFragmentDelegate implements IFlutterViewContainer
     }
 
     public void onLowMemory() {
-        Log.v(TAG, "Forwarding onLowMemory() to FlutterEngine.");
-        mSyncer.onLowMemory();
+      
+        if (null != mSyncer){
+            mSyncer.onLowMemory(level);
+        }
 
         ensureAlive();
         flutterEngine.getSystemChannel().sendMemoryPressureWarning();
